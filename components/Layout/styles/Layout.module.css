@@ -1,0 +1,9 @@
+.layoutStyle {
+  display: flex;
+  flex-direction: row;
+}
+
+.childrenStyle {
+  margin-top: 4%;
+  margin-left: 1%;
+}

@@ -1,0 +1,12 @@
+.navStyle {
+  position: absolute;
+  display: grid;
+  justify-content: end;
+  background-color: rgb(54, 139, 235);
+  width: 100%;
+  box-shadow: 2px 2px 2px 2px rgb(34, 88, 150);
+}
+
+/* .testHeading {
+  text-align: center;
+} */
