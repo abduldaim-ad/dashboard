@@ -12,11 +12,47 @@ import Tooltip from "@mui/material/Tooltip";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 
 type Props = {};
 
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+
+function CustomTabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+function a11yProps(index: number) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
+
 const Navbar = (props: Props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [value, setValue] = React.useState(0);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -25,26 +61,35 @@ const Navbar = (props: Props) => {
     setAnchorEl(null);
   };
 
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
+
   return (
     <React.Fragment>
       <div className={styles.navStyle}>
-        <Box
-          sx={{ display: "flex", alignItems: "center", textAlign: "center" }}
-        >
-          <Typography sx={{ minWidth: 100 }}>Contact</Typography>
-          <Typography sx={{ minWidth: 100 }}>Profile</Typography>
-          <Tooltip title="Account settings">
-            <IconButton
-              onClick={handleClick}
-              size="small"
-              sx={{ ml: 2 }}
-              aria-controls={open ? "account-menu" : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? "true" : undefined}
-            >
-              <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
-            </IconButton>
-          </Tooltip>
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+          >
+            <Tab label="Item One" {...a11yProps(0)} />
+            <Tab label="Item Two" {...a11yProps(1)} />
+            <Tab label="Item Three" {...a11yProps(2)} />
+            <Tooltip title="Account settings">
+              <IconButton
+                onClick={handleClick}
+                size="small"
+                sx={{ ml: 2 }}
+                aria-controls={open ? "account-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+              >
+                <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+              </IconButton>
+            </Tooltip>
+          </Tabs>
         </Box>
         <Menu
           anchorEl={anchorEl}

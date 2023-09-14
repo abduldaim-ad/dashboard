@@ -47,7 +47,7 @@ const SideMenu = (props: Props) => {
         <MenuItem> Companies </MenuItem>
         <MenuItem> Account </MenuItem>
         <MenuItem> Settings </MenuItem>
-        <MenuItem component={<Link href="/dashboard" />}> Error </MenuItem>
+        <MenuItem> Error </MenuItem>
       </Menu>
     </Sidebar>
   );
